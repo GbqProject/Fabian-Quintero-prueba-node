@@ -31,6 +31,13 @@ Categoria.belongsToMany(Producto, {
     foreignKey: "id_categoria"
 });
 
+// Direct relations
+ProductoCategoria.belongsTo(Producto, { foreignKey: "id_producto" });
+Producto.hasMany(ProductoCategoria, { foreignKey: "id_producto" });
+
+ProductoCategoria.belongsTo(Categoria, { foreignKey: "id_categoria" });
+Categoria.hasMany(ProductoCategoria, { foreignKey: "id_categoria" });
+
 // Tienda - Pedido
 Tienda.hasMany(Pedido, { foreignKey: "id_tienda" });
 Pedido.belongsTo(Tienda, { foreignKey: "id_tienda" });
@@ -55,6 +62,26 @@ Tienda.belongsToMany(Promocion, {
 
 Promocion.belongsToMany(Tienda, {
     through: TiendaPromocion,
+    foreignKey: "id_promocion"
+});
+
+
+// TiendaPromocion -> Tienda
+TiendaPromocion.belongsTo(Tienda, {
+    foreignKey: "id_tienda"
+});
+
+Tienda.hasMany(TiendaPromocion, {
+    foreignKey: "id_tienda"
+});
+
+
+// TiendaPromocion -> Promocion
+TiendaPromocion.belongsTo(Promocion, {
+    foreignKey: "id_promocion"
+});
+
+Promocion.hasMany(TiendaPromocion, {
     foreignKey: "id_promocion"
 });
 
